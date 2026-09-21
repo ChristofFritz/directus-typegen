@@ -6,6 +6,7 @@ name: Release
 on:
   release:
     types: [published]
+  workflow_dispatch: # re-run a release manually, e.g. after a failed publish
 
 permissions:
   contents: read
@@ -41,7 +42,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
+          # No registry-url: it would inject a placeholder NODE_AUTH_TOKEN and npm
+          # would use that instead of the OIDC token from trusted publishing.
           cache: npm
       - run: npm ci
       # npm >= 11.5.1 is needed for trusted publishing; Node 24 ships npm 11.
