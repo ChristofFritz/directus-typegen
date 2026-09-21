@@ -3,3 +3,4 @@ build/
 tmp/
 *.local
 *.local.*
+*.tgz

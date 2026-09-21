@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+env:
+  DIRECTUS_VERSION: 12.3.1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      directus:
+        image: directus/directus:12.3.1
+        ports:
+          - 8055:8055
+        env:
+          KEY: test-key
+          SECRET: test-secret
+          ADMIN_EMAIL: admin@example.com
+          ADMIN_PASSWORD: admin123
+          ADMIN_TOKEN: test-static-token
+          DB_CLIENT: sqlite3
+          DB_FILENAME: /directus/database/data.db
+          WEBSOCKETS_ENABLED: "false"
+          TELEMETRY: "false"
+        options: >-
+          --health-cmd "wget -qO- http://127.0.0.1:8055/server/ping || exit 1"
+          --health-interval 3s
+          --health-timeout 5s
+          --health-retries 40
+          --health-start-period 15s
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Unit + integration tests against Directus ${{ env.DIRECTUS_VERSION }}
+        run: npm test
+        env:
+          DIRECTUS_TEST_HOST: http://localhost:8055
+          DIRECTUS_TEST_TOKEN: test-static-token
+          DIRECTUS_TEST_EMAIL: admin@example.com
+          DIRECTUS_TEST_PASSWORD: admin123
+          DIRECTUS_TEST_VERSION: ${{ env.DIRECTUS_VERSION }}

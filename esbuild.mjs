@@ -11,6 +11,8 @@ const base = {
   outbase: `src`,
   outdir: `build`,
   packages: `external`,
+  platform: `node`,
+  target: `node20`,
   sourcemap: true,
 };
 
@@ -36,11 +38,18 @@ const esm = {
   },
 };
 
-await Promise.all(
-  [esm, cjs].map((config) =>
-    esbuild.build({
-      ...config,
-      entryPoints: [`./src/index.ts`, `./src/cli.ts`],
-    }),
-  ),
-);
+// The CLI is ESM-only (yargs 18 has no CommonJS build); the library ships both.
+await Promise.all([
+  esbuild.build({
+    ...esm,
+    entryPoints: [`./src/index.ts`, `./src/cli.ts`],
+  }),
+  esbuild.build({
+    ...cjs,
+    entryPoints: [
+      `./src/index.ts`,
+      `./src/index.test.ts`,
+      `./src/integration.test.ts`,
+    ],
+  }),
+]);

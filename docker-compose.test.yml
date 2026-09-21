@@ -1,0 +1,22 @@
+# Local Directus 12.3.1 for the integration test: npm run test:integration:docker
+services:
+  directus:
+    image: directus/directus:12.3.1
+    ports:
+      - "18055:8055"
+    environment:
+      KEY: test-key
+      SECRET: test-secret
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin123
+      ADMIN_TOKEN: test-static-token
+      DB_CLIENT: sqlite3
+      DB_FILENAME: /directus/database/data.db
+      WEBSOCKETS_ENABLED: "false"
+      TELEMETRY: "false"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8055/server/ping"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+      start_period: 15s
