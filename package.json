@@ -1,6 +1,6 @@
 {
   "name": "directus-typegen",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Generate a TypeScript schema for the Directus SDK from a running Directus server or its OpenAPI spec",
   "keywords": [
     "directus",

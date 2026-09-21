@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 (2026-09-21)
+
+- Published through npm trusted publishing (OIDC) with provenance. No code changes.
+
 ## 2.0.0 (2026-09-21)
 
 Fork of [directus-typescript-gen](https://github.com/elierotenberg/directus-typescript-gen) 1.0, renamed to `directus-typegen`. Targets Directus 12 and `@directus/sdk` 25.
