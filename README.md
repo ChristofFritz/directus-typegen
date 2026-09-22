@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/ChristofFritz/directus-typegen/actions/workflows/ci.yml/badge.svg)](https://github.com/ChristofFritz/directus-typegen/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/directus-typegen)](https://www.npmjs.com/package/directus-typegen)
 
-Generate a TypeScript schema for the [Directus SDK](https://docs.directus.io/guides/sdk/) from a Directus OpenAPI spec or a running Directus server (tested against Directus 12.3.1).
+Generate a TypeScript schema for the Directus SDK from a Directus OpenAPI spec or a running Directus server (tested against Directus 12.3.1).
 
 The generated file gives you type-checking and autocompletion for `createDirectus<Schema>()`.
 
