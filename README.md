@@ -124,10 +124,6 @@ npm run test:integration:docker  # also runs the integration test against Direct
 
 The integration test (`src/integration.test.ts`) starts from an empty Directus, seeds it over the REST API with every field and relation kind (all scalar types, m2o, o2m, m2m, m2a, files, translations, a singleton, a folder, a hyphenated collection name, string/uuid/integer primary keys), runs the CLI with a static token and with email/password, checks the generated types and type-checks them together with `@directus/sdk`. It runs only when `DIRECTUS_TEST_HOST` is set; CI does this on every push and pull request (`.github/workflows/ci.yml`).
 
-### Releasing
-
-Publishing a GitHub release runs `.github/workflows/release.yml`, which tests and publishes to npm through [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC, no token) with provenance. The package's trusted publisher on npmjs.com must point at this repository and `release.yml`; the very first version has to be published manually once so that setting can be made.
-
 ## Credits
 
 Started as a fork of [directus-typescript-gen](https://github.com/elierotenberg/directus-typescript-gen) by Elie Rotenberg; the generator has since been rewritten for the current Directus SDK.
